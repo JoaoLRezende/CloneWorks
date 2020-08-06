@@ -1,16 +1,15 @@
 #!/bin/bash
 
-./cwbuild   --input example/NPB3.4.1/NPB3.4-OMP/IS          \
-            --fileids example/NPB.files                     \
-            --code-fragments example/NPB.fragments          \
-            --language c                                    \
-            --granularity function                          \
-            --configuration type3token                      &&
-
-./cwdetect  --input example/NPB.fragments       \
-            --output example/NPB.clones         \
-            --min-similarity 0.5                &&
-
+./cwbuild   --input             example/NPB3.4.1/NPB3.4-OMP/IS   \
+            --fileids           example/NPB.files                \
+            --code-fragments    example/NPB.fragments            \
+            --language          c                                \
+            --granularity       function                         \
+            --configuration     type3token                       \
+&&
+./cwdetect  --input             example/NPB.fragments       \
+            --output            example/NPB.clones          \
+            --min-similarity    0.5                         \
+&&
 # TODO: pretty-print clone output with cwformat
-
 less example/NPB.clones
