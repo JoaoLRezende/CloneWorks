@@ -1,3 +1,13 @@
+  LoopWorks
+================================================================================
+To build for the first time, run the `build` script. To rebuild everything
+except for the Txl source files (which can take a while), run `build_partial`.
+
+To run tests on the NPB source files, run `test_NPB`.
+
+CloneWorks' original readme follows below.
+
+
   CloneWorks
 ================================================================================
 
@@ -43,7 +53,7 @@ Testing CloneWorks
 Once installed, CloneWorks can be tested by executing the following commands in
 the installation directory:
 
-./cwbuild -i example/JHotDraw54b1/ -f example/JHotDraw.files -b example/JHotDraw.fragments -l java -g function -c type3_conservative
+./cwbuild -i example/JHotDraw54b1/ -f example/JHotDraw.files -b example/JHotDraw.fragments -l java -g function -c type3token
 ./cwdetect -i example/JHotDraw.fragments -o example/JHotDraw.clones -s 0.7
 
 This performs Type-3 clone detection on JHotDraw.  The clones are in the file

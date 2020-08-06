@@ -1,0 +1,14 @@
+#!/bin/bash
+
+./cwbuild   -i example/NPB3.4.1/NPB3.4-OMP/IS         \
+            -f example/NPB.files                      \
+            -b example/NPB.fragments                  \
+            -l c                                      \
+            -g function                               \
+            -c type3token                             &&
+
+./cwdetect  -i example/NPB.fragments        \
+            -o example/NPB.clones           \
+            -s 0.5                          &&
+
+less example/NPB.clones
