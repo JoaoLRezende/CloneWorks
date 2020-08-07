@@ -2,4 +2,4 @@ bin/
 txl/*.x
 *.fragments
 *.files
-*.clones
+*.clones*
