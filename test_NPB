@@ -4,12 +4,19 @@
             --fileids           example/NPB.files                \
             --code-fragments    example/NPB.fragments            \
             --language          c                                \
-            --granularity       function                         \
+            --granularity       block                            \
             --configuration     type3token                       \
 &&
 ./cwdetect  --input             example/NPB.fragments       \
             --output            example/NPB.clones          \
-            --min-similarity    0.5                         \
+            --min-similarity    0.7                         \
 &&
-# TODO: pretty-print clone output with cwformat
-less example/NPB.clones
+./cwformat  --fileids           example/NPB.files               \
+            --clones            example/NPB.clones              \
+            --output            example/NPB.clones.pretty       \
+            --formater          xml_withsrc                     \
+&&
+# TODO: experiment with other values for --formater and formatter options
+less example/NPB.clones.pretty
+
+# TODO: use named constants instead of hard-coding file names
