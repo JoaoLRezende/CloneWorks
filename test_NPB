@@ -1,22 +1,20 @@
 #!/bin/bash
 
-./cwbuild   --input             example/NPB3.4.1/NPB3.4-OMP/IS   \
+./cwbuild   --input             example/NPB3.4.1/                \
             --fileids           example/NPB.files                \
             --code-fragments    example/NPB.fragments            \
             --language          c                                \
             --granularity       block                            \
-            --configuration     type3token                       \
+            --configuration     type3pattern                     \
 &&
-./cwdetect  --input             example/NPB.fragments       \
-            --output            example/NPB.clones          \
-            --min-similarity    0.7                         \
+./cwdetect  --input             example/NPB.fragments            \
+            --output            example/NPB.clones               \
+            --min-similarity    0.8                              \
 &&
-./cwformat  --fileids           example/NPB.files               \
-            --clones            example/NPB.clones              \
-            --output            example/NPB.clones.pretty       \
-            --formater          xml_withsrc                     \
+./cwformat  --fileids           example/NPB.files                \
+            --clones            example/NPB.clones               \
+            --output            example/NPB.clones.pretty        \
+            --formater          xml_withsrc                      \
 &&
 # TODO: experiment with other values for --formater and formatter options
 less example/NPB.clones.pretty
-
-# TODO: use named constants instead of hard-coding file names
