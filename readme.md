@@ -12,7 +12,7 @@ After modifying non-Txl source files, to rebuild everything except those, run
 
 CloneWorks' original readme follows below.
 
-
+```
   CloneWorks
 ================================================================================
 
@@ -165,11 +165,4 @@ Clones are found in the output file in the following format:
 This indicates a clone pair between lines 40-50 (inclusive) in source file 10
 and lins 60-70 (inclusive) in source file 20.  The mapping of IDs to source
 paths are in the fileids file produced by the input builder.
-
-
-
-
-
-
-
-
+```
