@@ -1,9 +1,14 @@
   LoopWorks
 ================================================================================
-To build for the first time, run the `build` script. To rebuild everything
-except for the Txl source files (which can take a while), run `build_partial`.
+This is like CloneWorks, except that:
+- we have more codebases for testing in `example/`.
+- we have a script `test_NPB` for quick testing on the NPB codebase.
+- we have a script named `build_partial`, described below.
+- we have a modified .gitignore.
 
-To run tests on the NPB source files, run `test_NPB`.
+To build for the first time, run the `build` script.
+After modifying non-Txl source files, to rebuild everything except those, run
+`build_partial`.
 
 CloneWorks' original readme follows below.
 
