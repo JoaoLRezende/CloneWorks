@@ -1,6 +1,7 @@
   LoopWorks
 ================================================================================
 This is like CloneWorks, except that:
+- we have a code-fragment processor named `dump` that does nothing but dump the current state of code fragments in the processing pipeline to a file, to facilitate debugging.
 - we have more codebases for testing in `example/`.
 - we have a script `test_NPB` for quick testing on the NPB codebase.
 - we have a script named `build_partial`, described below.

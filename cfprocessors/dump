@@ -1,0 +1,29 @@
+#!/bin/bash
+
+### Standard Options
+# $1 = mode
+# $2 = install dir
+# $3 = language
+# $4 = granularity
+
+### Parameters
+# $5 = name of the file to dump fragments into
+
+if [ "$1" = "r" ]
+then
+    tee $5
+    exit $?
+fi
+
+if [ "$1" = "v" ]
+then
+    if [ -z "$5" ]
+    then
+        echo "no dump file was given"
+        exit 1
+    fi
+
+    exit 0
+fi
+
+exit 1
