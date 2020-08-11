@@ -1,0 +1,31 @@
+#!/bin/bash
+
+### Standard Options
+# $1 = mode
+# $2 = install dir
+# $3 = language
+# $4 = granularity
+
+# Script
+script=${2}/txl/${3}-extract-loops-${4}s.txl
+#script=${2}/txl/${3}-extract-loops-${4}s.x		# TODO: when those TXL programs are finished, use the line above instead (to execute the compiled program instead of interpreting the souce TXL file). also change the commented code below accordingly.
+
+if [ "$1" = "r" ]
+then
+	#./${script} stdin
+	txl stdin ${script} 
+	exit $?
+fi
+
+if [ "$1" = "v" ]
+then
+	if [ -e ${script} ]
+	then
+		exit 0
+	else
+		echo "extract-loops does not exist for language ${3} and granularity ${4}."
+		exit 1
+	fi
+fi
+
+exit 1
