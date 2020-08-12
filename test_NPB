@@ -15,6 +15,4 @@
             --clones            example/NPB.clones               \
             --output            example/NPB.clones.pretty        \
             --formater          xml_withsrc                      \
-&&
 # TODO: experiment with other values for --formater and formatter options
-less example/NPB.clones.pretty
