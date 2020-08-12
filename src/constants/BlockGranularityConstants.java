@@ -10,6 +10,9 @@ public class BlockGranularityConstants {
 	
 	public static final int FILE = 3;
 	public static final String STR_FILE = "file";
+
+	public static final int LOOP = 4;
+	public static final String STR_LOOP = "loop";
 	
 	public static int getCanonical(String granularity) {
 		granularity = granularity.toLowerCase();
@@ -19,6 +22,8 @@ public class BlockGranularityConstants {
 			return BLOCK;
 		else if (granularity.equals(STR_FUNCTION))
 			return FUNCTION;
+		else if (granularity.equals(STR_LOOP))
+			return LOOP;
 		else
 			throw new IllegalArgumentException("Block granularity '" + granularity + "' is not valid.");
 	}
@@ -31,13 +36,16 @@ public class BlockGranularityConstants {
 				return STR_BLOCK;
 			case FILE:
 				return STR_FILE;
+			case LOOP:
+				return STR_LOOP;
 			default:
 				throw new IllegalArgumentException("Block granularity constant " + granularity + " is not valid.");	
 		}
 	}
 	
 	public static boolean checkValid(int granularity) {
-		if(granularity == FILE || granularity == BLOCK || granularity == FUNCTION)
+		if(granularity == FILE || granularity == BLOCK || granularity == FUNCTION
+		   || granularity == LOOP)
 			return true;
 		else
 			return false;
