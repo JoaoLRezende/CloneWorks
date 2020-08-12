@@ -5,7 +5,7 @@
             --code-fragments    example/NPB.fragments            \
             --language          c                                \
             --granularity       block                            \
-            --configuration     type3pattern                     \
+            --configuration     loop_granularity_test            \
 &&
 ./cwdetect  --input             example/NPB.fragments            \
             --output            example/NPB.clones               \
