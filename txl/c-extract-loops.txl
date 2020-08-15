@@ -1,8 +1,3 @@
-% This file is currently a modified clone of c-extract-functions.txl.
-% TODO: update comments and identifiers created herein.
-% TODO: does this also extract nested loops? That's important.
-% Consider how c-extract-blocks.txl extracts nested blocks.
-
 % Example using TXL 10.5a source coordinate extensions to extract
 % a table of all function definitions with source coordinates
 
@@ -18,164 +13,22 @@ include "c.grm"
 % Ignore BOM headers from Windows
 include "bom.grm"
 
-% Redefinitions to collect source coordinates for function definitions as parsed input,
-% and to allow for XML markup of function definitions as output
-
-redefine function_definition
-	% Input form 
-	[srcfilename] [srclinenumber] 		% Keep track of starting file and line number
-	[function_header]
-	[opt KR_parameter_decls]
-	'{ 				[IN][NL]
-	    [compound_statement_body]	[EX]
-	    [srcfilename] [srclinenumber] 	% Keep track of ending file and line number
-	'}
-    |
-	% Output form 
-        [not token]                             % disallow output form in input parse
-	[opt xml_source_coordinate]
-	[function_header]
-	[opt KR_parameter_decls]
-	'{ 				[IN][NL]
-	    [compound_statement_body] 	[EX]
-	'}
-	[opt end_xml_source_coordinate]
-end redefine
-
-% Make a definition of loop analogous to the redefinition of function_definition above.
-% Then, make sure there are no more references to function_definition in this program
-% (but, rather, to loop) and remove that redefinition altogether.
-
-define for_statement_header
-    'for ( [opt expression_list] '; [opt expression_list] '; [opt expression_list] )
-#ifdef GNU
-|   'for ( [decl_specifiers] [list init_declarator+] '; [opt expression_list] '; [opt expression_list] )
-|   'for ( [opt expression_list] '; [opt expression_list] )
-#endif
-#ifdef MACROS
-|   [foreachid] '( [expression_list] ')
-#endif
-end define    
-
-define while_statement_header
-    'while '( [condition] ')
-end define
-
-define do_statement_header
-    'do
-end define
-
-define loop_header
-    [for_statement_header]
-    | [while_statement_header]
-    | [do_statement_header]
-end define
-
-redefine loop
-	% Input form 
-	[srcfilename] [srclinenumber] 		% Keep track of starting file and line number
-	[loop_header]
-	'{ 				[IN][NL]
-	    [compound_statement_body]	[EX]
-	    [srcfilename] [srclinenumber] 	% Keep track of ending file and line number
-	'}
-    |
-	% Output form 
-        [not token]                             % disallow output form in input parse
-	[opt xml_source_coordinate]
-	[loop_header]
-	'{ 				[IN][NL]
-	    [compound_statement_body] 	[EX]
-	'}
-	[opt end_xml_source_coordinate]
-end redefine
-
-define xml_source_coordinate
-    '< [SPOFF] 'source [SP] 'file=[stringlit] [SP] 'startline=[stringlit] [SP] 'endline=[stringlit] '> [SPON] [NL]
-end define
-
-define end_xml_source_coordinate
-    [NL] '< [SPOFF] '/ 'source '> [SPON] [NL]
+redefine for_statement
+	...
+	| [while_statement]
+	| [do_statement]
 end define
 
 redefine program
 	...
-    | 	[repeat function_definition]
+    | [repeat for_statement]
 end redefine
 
-
-% Main function - extract and mark up function definitions from parsed input program
 function main
     replace [program]
 	P [program]
-    construct Functions [repeat function_definition]
-    	_ [^ P] 			% Extract all functions from program
-	  [convertFunctionDefinitions] 	% Mark up with XML
+    construct Loops [repeat for_statement]
+    	_ [^ P]
     by 
-    	Functions [removeOptSemis]
-	          [removeEmptyStatements]
+    	Loops
 end function
-
-rule convertFunctionDefinitions
-    % Find each function definition and match its input source coordinates
-    replace [function_definition]
-	FileName [srcfilename] LineNumber [srclinenumber]
-	FunctionHeader [function_header]
-	KR_Parms [opt KR_parameter_decls]
-	'{
-	    FunctionBody [compound_statement_body]
-	    EndFileName [srcfilename] EndLineNumber [srclinenumber]
-	'}
-
-    % Convert file name and line numbers to strings for XML
-    construct FileNameString [stringlit]
-	_ [quote FileName] 
-    construct LineNumberString [stringlit]
-	_ [quote LineNumber]
-    construct EndLineNumberString [stringlit]
-	_ [quote EndLineNumber]
-
-    % Output is XML form with attributes indicating input source coordinates
-    construct XmlHeader [xml_source_coordinate]
-	<source file=FileNameString startline=LineNumberString endline=EndLineNumberString>
-    by
-	XmlHeader
-	FunctionHeader 
-	KR_Parms
-	'{
-	    FunctionBody [unmarkEmbeddedFunctionDefinitions]
-	'}
-	</source>
-end rule
-
-rule unmarkEmbeddedFunctionDefinitions
-    replace [function_definition]
-	FileName [srcfilename] LineNumber [srclinenumber]
-	FunctionHeader [function_header]
-	KR_Parms [opt KR_parameter_decls]
-	'{
-	    FunctionBody [compound_statement_body]
-	    EndFileName [srcfilename] EndLineNumber [srclinenumber]
-	'}
-    by
-	FunctionHeader 
-	KR_Parms
-	'{
-	    FunctionBody
-	'}
-end rule
-
-rule removeOptSemis
-    replace [opt ';]
-	';
-    by
-	% none
-end rule
-
-rule removeEmptyStatements
-    replace [repeat declaration_or_statement]
-	';
-	More [repeat declaration_or_statement]
-    by
-	More
-end rule
