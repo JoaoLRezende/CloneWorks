@@ -1,11 +1,20 @@
-% Example using TXL 10.5a source coordinate extensions to extract
-% a table of all function definitions with source coordinates
+% Extract loop constructs from source files.
+% Based on c-extract-functions.txl.
 
-% Jim Cordy, January 2008
+% TODO: Cause this program to format its output appropriately, with
+% XML-style markup, as is done by c-extract-functions.txl. Also look at
+% the older versions of this file (also in this directory) for inspiration.
+% After making sure you've reutilized every useful part of the older versions
+% of this program in this directory, delete them. (Make sure to
+% either deal with or copy the TODOs contained in them, too.)
 
-% Revised Aug 2012 - disallow ouput forms in input parse - JRC
-% Revised July 2011 - ignore BOM headers in source
-% Revised 30.04.08 - unmark embedded functions - JRC
+% TODO: rename names of symbols defined herein properly. Create new symbols instead
+% of redefining existing ones in ways that make their names misleading. (E.g., for_statements
+% should be for statements. Create and use a new symbol named "loop" to represent
+% every loop construct.)
+% (Do this while testing the code at every step. Weird stuff happens sometimes.)
+
+% TODO: Comment this program properly.
 
 % Using Gnu C grammar
 include "c.grm"
