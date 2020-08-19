@@ -6,7 +6,6 @@ This is like CloneWorks, except that:
 - we have more codebases for testing in `example/`.
 - we have a script named `test` for quick testing of whatever is currently being worked on.
 - we have a script named `build_partial`, described below.
-- we have a modified .gitignore.
 
 To build for the first time, run the `build` script.
 After modifying non-Txl source files, to rebuild everything except those, run
