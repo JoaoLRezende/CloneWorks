@@ -1,10 +1,18 @@
 #!/bin/bash
 
+# Recompile the relevant Txl programs.
+RELEVANT_TXL_PROGRAMS="c-extract-loops.txl"
+cd txl;
+if ! txlc $RELEVANT_TXL_PROGRAMS; then
+    cd ..; exit
+fi
+cd ..;
+
 ./cwbuild   --input             example/NPB3.4.1/                \
             --fileids           example/NPB.files                \
             --code-fragments    example/NPB.fragments            \
             --language          c                                \
-            --granularity       block                            \
+            --granularity       loop                             \
             --configuration     loop_granularity_test            \
 &&
 ./cwdetect  --input             example/NPB.fragments            \
@@ -15,4 +23,5 @@
             --clones            example/NPB.clones               \
             --output            example/NPB.clones.pretty        \
             --formater          xml_withsrc                      \
+&& gedit initial_fragments.dump
 # TODO: experiment with other values for --formater and formatter options
