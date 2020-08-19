@@ -1,9 +1,10 @@
   LoopWorks
 ================================================================================
 This is like CloneWorks, except that:
+- we support an additional granularity option, `loop`, that acts only upon for loops, while loops and do-while loops. (Currently only implemented for C.) (TODO: update the output of `cwbuild --help`.)
 - we have a code-fragment processor named `dump` that does nothing but dump the current state of code fragments in the processing pipeline to a file, to facilitate debugging.
 - we have more codebases for testing in `example/`.
-- we have a script `test_NPB` for quick testing on the NPB codebase.
+- we have a script named `test` for quick testing of whatever is currently being worked on.
 - we have a script named `build_partial`, described below.
 - we have a modified .gitignore.
 
