@@ -1,0 +1,17 @@
+# Do nothing but dump unprocessed extracted fragments to a file.
+
+############################
+# Code-Fragment Processors #
+############################
+cfproc=dump initial_fragments.dump
+
+##############
+# Term Split #
+##############
+termsplit=line
+
+####################
+# Token Processors #
+####################
+
+

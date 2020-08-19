@@ -13,7 +13,7 @@ cd ..;
             --code-fragments    example/NPB.fragments            \
             --language          c                                \
             --granularity       loop                             \
-            --configuration     loop_granularity_test            \
+            --configuration     fragment_extraction_test         \
 &&
 ./cwdetect  --input             example/NPB.fragments            \
             --output            example/NPB.clones               \
