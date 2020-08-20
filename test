@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Test extraction of loops from C code.
+# Dump them to a file named initial_fragments.dump, and open it in gedit.
+
 # Recompile the relevant Txl programs.
 RELEVANT_TXL_PROGRAMS="c-extract-loops.txl"
 cd txl;

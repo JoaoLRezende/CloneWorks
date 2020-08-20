@@ -7,9 +7,8 @@ This is like CloneWorks, except that:
 - we have a script named `test` for quick testing of whatever is currently being worked on.
 - we have a script named `build_partial`, described below.
 
-To build for the first time, run the `build` script.
-After modifying non-Txl source files, to rebuild everything except those, run
-`build_partial`.
+To build, run the `build` script. Then you can run `test`, which will do something, probably.
+To rebuild everything except Txl programs, run `build_partial`.
 
 CloneWorks' original readme follows below.
 
